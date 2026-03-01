@@ -55,17 +55,19 @@ class ExcelPDFChatbot:
         """
         self.llm = ChatOpenAI(
             openai_api_key=api_key,
-            model="gpt-4o-mini",
+            model="openai/gpt-4o-mini",
+            base_url="https://mlapi.run/40cc17ae-a89b-4f12-a7d6-13293180fc87/v1",
             temperature=0,
             streaming=True,
         )
         self.route_llm = ChatOpenAI(
             openai_api_key=api_key,
-            model="gpt-4o-mini",
+            model="openai/gpt-4o-mini",
+            base_url="https://mlapi.run/40cc17ae-a89b-4f12-a7d6-13293180fc87/v1"
             temperature=0,
         )
-        self.embeddings = OpenAIEmbeddings(openai_api_key=api_key)
-
+        # self.embeddings = OpenAIEmbeddings(openai_api_key=api_key)
+        self.embeddings = OpenAIEmbeddings(model="openai/text-embedding-3-small", base_url="https://mlapi.run/b54ff33e-6d14-42df-93f9-0f1132160ee8/v1")
         self.df_data = df_data
         self.pdf_path = pdf_path
 
@@ -459,3 +461,4 @@ class ExcelPDFChatbot:
             "question": state["question"],
             "generation": route.lower().strip(),
         }
+
